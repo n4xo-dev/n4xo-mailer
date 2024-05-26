@@ -4,7 +4,6 @@ import Fastify from 'fastify';
 const app = Fastify();
 
 app.post('/api/contact', async (request, reply) => {
-  console.log('request', request.body, '\n', process.env.SMTP_HOST, process.env.SMTP_PORT, process.env.SMTP_USER, process.env.SMTP_PASS, process.env.TARGET_MAIL)
   const { name, email, message } = await request.body;
 
   const transporter = nodemailer.createTransport({
