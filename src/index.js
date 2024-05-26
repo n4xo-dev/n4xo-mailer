@@ -7,18 +7,18 @@ app.post('/api/contact', async (request, reply) => {
   const { name, email, message } = await request.body;
 
   const transporter = nodemailer.createTransport({
-    host: 'smtp.mailgun.org',
-    port: 587,
-    secure: false, // true for 465, false for other ports
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    secure: Number(process.SMTP_PORT) === 465, // true for 465, false for other ports
     auth: {
-      user: 'postmaster@sandbox704ec31940494265a5a375c576b49843.mailgun.org',
+      user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS,
     },
   });
 
   const mailOptions = {
-    from: 'postmaster@sandbox704ec31940494265a5a375c576b49843.mailgun.org',
-    to: 'me@n4xo.com',
+    from: process.env.SMTP_USER,
+    to: process.env.TARGET_MAIL,
     subject: 'New message from your website!',
     text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`
   };
