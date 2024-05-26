@@ -4,6 +4,7 @@ import Fastify from 'fastify';
 const app = Fastify();
 
 app.post('/api/contact', async (request, reply) => {
+  console.log('request', request.body, '\n', process.env.SMTP_HOST, process.env.SMTP_PORT, process.env.SMTP_USER, process.env.SMTP_PASS, process.env.TARGET_MAIL)
   const { name, email, message } = await request.body;
 
   const transporter = nodemailer.createTransport({
@@ -25,10 +26,10 @@ app.post('/api/contact', async (request, reply) => {
 
   try {
     await transporter.sendMail(mailOptions);
-    return new Response(JSON.stringify({ success: true }), { status: 200 });
+    reply.send({ success: true });
   } catch (error) {
     console.error(error);
-    return new Response(JSON.stringify({ success: false, error: error.message }), { status: 500 });
+    reply.status(500).send({ success: false, error: error.message });
   }
 });
 
