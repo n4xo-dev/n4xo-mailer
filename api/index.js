@@ -2,13 +2,13 @@ import nodemailer from 'nodemailer';
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
 
-const app = Fastify({ logger: true });
+const app = Fastify();
 await app.register(cors, {
   origin: ['http://localhost:4321', 'https://n4xo.com'],
 });
 
 app.post('/api/contact', async (request, reply) => {
-  const { name, email, message } = await request.body;
+  const { name, email, message } = request.body;
 
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
@@ -29,7 +29,7 @@ app.post('/api/contact', async (request, reply) => {
 
   try {
     await transporter.sendMail(mailOptions);
-    reply.send({ success: true });
+    reply.status(200).send({ success: true });
   } catch (error) {
     console.error(error);
     reply.status(500).send({ success: false, error: error.message });

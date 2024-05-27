@@ -4,8 +4,8 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js --env-file .env"
+    "start": "node --env-file .env api/index.js",
+    "dev": "nodemon --env-file .env api/index.js"
   },
   "author": "",
   "license": "ISC",
