@@ -2,7 +2,7 @@ import nodemailer from 'nodemailer';
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
 
-const app = Fastify();
+const app = Fastify({ logger: true });
 await app.register(cors, {
   origin: ['http://localhost:4321', 'https://n4xo.com'],
 });
