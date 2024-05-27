@@ -1,7 +1,11 @@
 import nodemailer from 'nodemailer';
 import Fastify from 'fastify';
+import cors from '@fastify/cors';
 
 const app = Fastify();
+await app.register(cors, {
+  origin: ['http://localhost', 'https://n4xo.com'],
+});
 
 app.post('/api/contact', async (request, reply) => {
   const { name, email, message } = await request.body;
