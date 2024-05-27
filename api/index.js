@@ -4,7 +4,7 @@ import cors from '@fastify/cors';
 
 const app = Fastify();
 await app.register(cors, {
-  origin: ['http://localhost', 'https://n4xo.com'],
+  origin: ['http://localhost:4321', 'https://n4xo.com'],
 });
 
 app.post('/api/contact', async (request, reply) => {
